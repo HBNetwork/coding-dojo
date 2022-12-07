@@ -6,7 +6,7 @@
 - Enunciado completo
 - link do local aonde está o enunciado
 - Participantes de toda interação  (autores)
-- Pessoas pessoas que participaram da roda do codingo dojo
+- Pessoas que participaram da roda do coding dojo
 - As datas DD/MM/AAAA
 - Com TDD
 
