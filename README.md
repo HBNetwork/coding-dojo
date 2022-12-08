@@ -18,8 +18,8 @@ Saiba mais em: (1) [Descobri a ferramenta que pode levar o Programador para um o
 - nome do arquivo descritivo ao problema; 
 - Enunciado completo do problema?
 - Fonte do desafio
-* Nome da pessoa/site
-* Link da origem
+- Nome da pessoa/site
+- Link da origem
 - Participantes de todas as etapas de interação para resolver o problema (autores) ;
 - Pessoas que participaram da dinâmica do coding dojo;
 - As datas DD/MM/AAAA de quando aconteceram;
