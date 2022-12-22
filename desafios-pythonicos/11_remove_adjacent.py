@@ -5,7 +5,6 @@ adjacentes iguais são reduzidos a um único elemento.
 Exemplo: [1, 2, 2, 3]
 Irá retornar: [1, 2, 3]
 """
-
 """
 Colocar nome aqui
 
@@ -16,22 +15,57 @@ Colocar nome aqui
 - joão m.
 - Greg
 - Luiz Carlos 
-- Cassio Augusto
 - Everton
 - Carlos
+- cassio
 
 """
+
+
+def remove_adjacent_joão(nums):
+    # +++ SUA SOLUÇÃO +++
+    if nums == []:
+        resposta = nums
+    else:
+        itens = [a for a, b in zip(nums, nums[1:] + [not nums[-1]]) if a != b]
+        resposta = itens
+    return resposta
+
+
+def remove_adjacent_kelver(nums):
+    # +++ SUA SOLUÇÃO +++
+    repeatedNums = []
+    for index, elem in enumerate(nums):
+        if index == 0:
+            repeatedNums.append(elem)
+        elif elem != nums[index - 1]:
+            repeatedNums.append(elem)
+    return repeatedNums
+
+
+def remove_adjacent_greg(nums):
+    lista_nums = []
+    for i, num in enumerate(nums):
+        print(i, num)
+        if i == 0:
+            lista_nums.append(num)
+        else:
+            if nums[i - 1] != num:
+                lista_nums.append(num)
+    return lista_nums
+
 
 def remove_adjacent(nums):
     # +++ SUA SOLUÇÃO +++
     lista_numeros = []
-    
-    if
-    
-    return
+    for i in nums:
+        if len(lista_numeros) == 0 or lista_numeros[-1] != i:
+            lista_numeros.append(i)
+    return lista_numeros
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
+
 
 def test(f, in_, expected):
     """
