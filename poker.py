@@ -161,7 +161,8 @@ def test_royal_flush():
 
 def test_straight_flush():
     assert straight_flush([3, 4, 5, 6, 7], [2, 8, 9, 3, 11]) == [3, 4, 5, 6, 7]
-    assert straight_flush([3, 4, 5, 6, 7], [2, 8, 9, 3, 11]) == [3, 4, 5, 6, 7]
+    assert straight_flush([2, 8, 9, 3, 11], [3, 4, 5, 6, 7]) == [3, 4, 5, 6, 7]
+    assert straight_flush([2, 8, 9, 3, 11], [4, 3, 7, 6, 5]) == [3, 4, 5, 6, 7]
 
 def test_verifica_sequencial():
   assert verifica_sequencial([6, 3,  4, 5, 2]) == True
