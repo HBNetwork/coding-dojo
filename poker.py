@@ -1,4 +1,5 @@
 import pytest
+from random import sample
 '''
 DATA: 04/01/2023
 DATA: 11/01/2023
@@ -86,7 +87,6 @@ def categoriza_mao(carta_j1, carta_j2):
     mao1 = [False, True, True, False, False]
     mao2 = [True, False, False, False, False]
 
-    ...
 
 def verifica_sequencial(mao):
 
@@ -103,25 +103,18 @@ def verifica_sequencial(mao):
             break
     return sequencial
 
-def straight_flush(mao1, mao2):
-    mao1.sort()
-    mao2.sort()
-    if verifica_sequencial(mao1):
-        return mao1
-    elif verifica_sequencial(mao2): 
-        return mao2
+def straight_flush(cartas):
+    cartas.sort()
+
+    return verifica_sequencial(cartas)
 
       
-def royal_flush(mao1, mao2):
-    mao1.sort()
-    mao2.sort()
+def royal_flush(cartas):
+    cartas.sort()
+    
+    return True if cartas == [10, 11, 12, 13, 14] else False
 
-    if mao1 == [10, 11, 12, 13, 14]:
-        return mao1
-    elif mao2 == [10, 11, 12, 13, 14]:
-        return mao2
-
-
+    
 def test_carta_alta():
     # Carta Alta
     assert carta_alta([3, 4, 5, 6, 13], [2, 8, 9, 3, 11]) == [3, 4, 5, 6, 13]
@@ -140,15 +133,12 @@ def test_categoriza_mao():
 """
 
 def test_royal_flush():
-    assert royal_flush([10, 11, 12, 13, 14],
-                       [2, 3, 8, 8, 11]) == [10, 11, 12, 13, 14]
-    assert royal_flush([2, 3, 8, 8, 11],
-                       [10, 11, 12, 13, 14]) == [10, 11, 12, 13, 14]
+    assert royal_flush(sample(range(10, 15), 5)) == True
+    assert royal_flush(sample(range(2, 15), 5)) == False 
 
 def test_straight_flush():
-    assert straight_flush([3, 4, 5, 6, 7], [2, 8, 9, 3, 11]) == [3, 4, 5, 6, 7]
-    assert straight_flush([2, 8, 9, 3, 11], [3, 4, 5, 6, 7]) == [3, 4, 5, 6, 7]
-    assert straight_flush([2, 8, 9, 3, 11], [4, 3, 7, 6, 5]) == [3, 4, 5, 6, 7]
+    assert straight_flush(sample(range(2, 7), 5)) == True
+    assert royal_flush(sample(range(2, 15), 5)) == False 
 
 def test_verifica_sequencial():
     assert verifica_sequencial([6, 3,  4, 5, 2]) == True
