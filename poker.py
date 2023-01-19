@@ -3,6 +3,7 @@ from random import sample
 '''
 DATA: 04/01/2023
 DATA: 11/01/2023
+DATA: 18/01/2023
 
 DESAFIO: Poker
 FONTE: https://dojopuzzles.com/problems/poker/
@@ -12,7 +13,7 @@ Este problema foi utilizado em 245 Dojo(s).
 No jogo de Poker, uma mão consiste em cinco cartas que podem ser comparadas, da mais baixa para a mais alta, da seguinte maneira:
 
 Carta Alta: A carta de maior valor.
-Um Par: Duas cartas do mesmo valor.
+Um Par: Duas cartas do mesmo vlor.
 Dois Pares: Dois pares diferentes.
 Trinca: Três cartas do mesmo valor e duas de valores diferentes.
 Straight (seqüência): Todas as carta com valores consecutivos.
@@ -59,40 +60,17 @@ Participantes
 Combinados definidos:
 - Não vamos considerar os naipes neste primeiro momento
 - Valete(J) - 11 Dama(Q) - 12 Rei - 13 - Ás - 14.
+-  Jogo com 2 jogadores
 - 
 '''
 baralho = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
-
-def carta_alta(carta_j1, carta_j2):
-    if max(carta_j1) > max(carta_j2):
-        return carta_j1
-    return carta_j2
-
-
-def quantitatiza_cartas(cartas):
-    cartas_q = {}
-
-    for i in range(0, 5):
-        qt = cartas.count(cartas[i])
-        cartas_q[cartas[i]] = qt
-    
-    return cartas_q
-
-def categoriza_mao(carta_j1, carta_j2):
-    quantidade_j1 = {}
-    quantidade_j2 = {}
-
-    # estrutura_jogo = [Royal Flush, Straight Flush, Quadra, Full House, Flush, Straight, Trinca, Pares, Carta Alta]
-    mao1 = [False, True, True, False, False]
-    mao2 = [True, False, False, False, False]
-
-
+# Funções de apoio
 def verifica_sequencial(mao):
 
     mao.sort()
     sequencial = False
-    for i in range(0, 5):        
+    for i in range(0, 5):
         if i == 4:
             break
         if mao[i + 1] - mao[i] == 1:
@@ -103,53 +81,155 @@ def verifica_sequencial(mao):
             break
     return sequencial
 
+
+def quantitatiza_cartas(cartas):  #pares, trinca e quadra
+    cartas_q = {}
+    cartas.sort()
+    for i in range(0, 5):
+        qt = cartas.count(cartas[i])
+        cartas_q[cartas[i]] = qt
+
+    return cartas_q
+
+
+
+#REGRAS DO POKER
+def carta_alta(cartas):
+    return [True, max(cartas)]
+
+
+def par(cartas):
+
+    qt = quantitatiza_cartas(cartas)
+    temp = [False, list()]
+    for k, v in qt.items():
+        if v == 2:
+            temp[0] = True
+            temp[1].append(k)
+    return temp
+
+
+
+def trinca(cartas):
+
+    qt = quantitatiza_cartas(cartas)
+    temp = [False, list()]
+    for k, v in qt.items():
+        if v == 3:
+            temp[0] = True
+            temp[1].append(k)
+    return temp
+
+
+
+def quadra(cartas):
+
+    qt = quantitatiza_cartas(cartas)
+    temp = [False, list()]
+    for k, v in qt.items():
+        if v == 4:
+            temp[0] = True
+            temp[1].append(k)
+    return temp
+
+
+
 def straight_flush(cartas):
     cartas.sort()
-
     return verifica_sequencial(cartas)
 
-      
+
 def royal_flush(cartas):
     cartas.sort()
-    
-    return True if cartas == [10, 11, 12, 13, 14] else False
+    return True if verifica_sequencial(cartas) and cartas[0] == 10 else False
 
-    
+
+# JOGO
+def categoriza_mao(cartas):
+    # estrutura_jogo = [Royal Flush, Straight Flush, Quadra, Full House, Flush, Straight, Trinca, Pares, Carta Alta]
+    pass
+
+
+def poker(mao1, mao2):
+
+    for i in range(5):
+        if not mao1[i] and not mao2[i]:
+            continue
+        if mao1[i] and mao2[i]:
+            vencedor = 'Empate'
+            break
+        if mao1[i]:
+            vencedor = 'Jogador 1'
+            break
+        if mao2[i]:
+            vencedor = 'Jogador 2'
+            break
+
+    return [vencedor, i]
+
+
 def test_carta_alta():
     # Carta Alta
-    assert carta_alta([3, 4, 5, 6, 13], [2, 8, 9, 3, 11]) == [3, 4, 5, 6, 13]
-    assert carta_alta([2, 3, 4, 5, 10],
-                      [8, 9, 10, 11, 12]) == [8, 9, 10, 11, 12]
+    assert carta_alta([3, 4, 5, 6, 13]) == [True, 13]
+    assert carta_alta([2, 3, 4, 5, 10]) == [True, 10]
+    assert carta_alta([8, 9, 15, 11, 12]) == [True, 15]
 
-"""
-REVER
-def test_categoriza_mao():
-    assert categoriza_mao([5, 5, 6, 7, 13],
-                          [2, 3, 8, 8, 11]) == [2, 3, 8, 8, 11]
-    assert categoriza_mao([2, 7, 7, 8, 11],
-                          [5, 6, 6, 9, 13]) == [2, 7, 7, 8, 11]
-    assert categoriza_mao([2, 2, 2, 2, 11],
-    [4, 5, 6, 6, 13]) == [2, 2, 2, 2, 11]
-"""
 
 def test_royal_flush():
     assert royal_flush(sample(range(10, 15), 5)) == True
-    assert royal_flush(sample(range(2, 15), 5)) == False 
+    assert royal_flush(sample(range(2, 15), 5)) == False
+
 
 def test_straight_flush():
     assert straight_flush(sample(range(2, 7), 5)) == True
-    assert royal_flush(sample(range(2, 15), 5)) == False 
+    assert straight_flush(sample(range(2, 15), 5)) == False
+
 
 def test_verifica_sequencial():
-    assert verifica_sequencial([6, 3,  4, 5, 2]) == True
-    assert verifica_sequencial([2, 3,  4, 5, 6]) == True
+    assert verifica_sequencial([6, 3, 4, 5, 2]) == True
+    assert verifica_sequencial([2, 3, 4, 5, 6]) == True
     assert verifica_sequencial([8, 9, 10, 11, 12]) == True
     assert verifica_sequencial([8, 9, 10, 11, 14]) == False
 
+
 def test_quantitatiza_cartas():
-    assert quantitatiza_cartas([5,5,6,7,13]) == {5:2, 6:1, 7:1, 13:1}
-    assert quantitatiza_cartas([5,5,5,7,13]) == {5:3, 7:1, 13:1}
-    assert quantitatiza_cartas([2,5,2,7,5]) == {5:2, 2:2, 7:1}
+    assert quantitatiza_cartas([5, 5, 6, 7, 13]) == {5: 2, 6: 1, 7: 1, 13: 1}
+    assert quantitatiza_cartas([5, 5, 5, 7, 13]) == {5: 3, 7: 1, 13: 1}
+    assert quantitatiza_cartas([2, 5, 2, 7, 5]) == {5: 2, 2: 2, 7: 1}
+
+
+def test_par():
+    assert par([5, 5, 6, 7, 13]) == [True, [5]]
+    assert par([6, 6, 2, 2, 13]) == [True, [2, 6]]
+    assert par([5, 5, 6, 6, 13]) == [True, [5, 6]]
+    assert par([5, 2, 5, 3, 10]) == [True, [5]]
+    assert par([4, 6, 8, 9, 11]) == [False, []]
+
+
+def test_trinca():
+    assert trinca([5, 5, 6, 7, 13]) == [False, []]
+    assert trinca([6, 6, 6, 2, 13]) == [True, [6]]
+    assert trinca([5, 5, 4, 5, 13]) == [True, [5]]
+    assert trinca([3, 2, 3, 3, 10]) == [True, [3]]
+    assert trinca([4, 6, 8, 9, 11]) == [False, []]
+
+
+def test_quadra():
+    assert quadra([5, 5, 5, 5, 13]) == [True, [5]]
+    assert quadra([6, 2, 2, 2, 2]) == [True, [2]]
+    assert quadra([5, 5, 5, 6, 13]) == [False, []]
+    assert quadra([5, 2, 5, 3, 10]) == [False, []]
+    assert quadra([4, 6, 8, 9, 11]) == [False, []]
+
+
+def test_poker():
+    assert poker([False, True, True, False, False],
+                 [True, False, False, False, False]) == ['Jogador 2', 0]
+    assert poker([True, True, True, False, False],
+                 [True, False, False, False, False]) == ['Empate', 0]
+    assert poker([False, True, True, False, False],
+                 [False, False, False, False, False]) == ['Jogador 1', 1]
+
 
 if __name__ == "__main__":
     pytest.main(['-svv', __file__])
