@@ -1,10 +1,12 @@
 import pytest
-from random import sample
+from random import sample, shuffle
 '''
 DATA: 04/01/2023
 DATA: 11/01/2023
 DATA: 18/01/2023
 DATA: 25/01/2023
+DATA: 01/02/2023
+
 
 DESAFIO: Poker
 FONTE: https://dojopuzzles.com/problems/poker/
@@ -53,11 +55,10 @@ Desenvolva um programa que, de acordo com as mãos de dois jogadores, informe qu
 Participantes
 - Conrado
 - Greg
-- Carlos Xavier
 - Cassio
-- joão moreno
 - Luiz Carlos
 - Everton Matos
+- Álisson
 
 
 
@@ -67,7 +68,6 @@ Combinados definidos:
 -  Jogo com 2 jogadores
 - 
 '''
-baralho = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
 
 # Funções de apoio
@@ -132,24 +132,9 @@ def trinca(cartas):
     return temp
 
 
-def quadra(cartas):
-    qt = quantitatiza_cartas(cartas)
-    temp = [False, list()]
-    for k, v in qt.items():
-        if v == 4:
-            temp[0] = True
-            temp[1].append(k)
-    return temp
-
-
-def straight_flush(cartas):
-    cartas.sort()
-    return verifica_sequencial(cartas)
-
-
 def straight(cartas):
     cartas.sort()
-    return verifica_sequencial(cartas)
+    return [verifica_sequencial(cartas), cartas]
 
 
 def flush(cartas):
@@ -164,9 +149,33 @@ def flush(cartas):
     return temp
 
 
+def full_house(cartas):
+    par_ = par(cartas)
+    trinca_ = trinca(cartas)
+    if par_[0] and trinca_[0]:
+        par_[1].extend(trinca_[1])
+        return [True, par_[1]]
+    return [False, []]
+
+
+def quadra(cartas):
+    qt = quantitatiza_cartas(cartas)
+    temp = [False, list()]
+    for k, v in qt.items():
+        if v == 4:
+            temp[0] = True
+            temp[1].append(k)
+    return temp
+
+
+def straight_flush(cartas):
+    cartas.sort()
+    return [verifica_sequencial(cartas), cartas]
+
+
 def royal_flush(cartas):
     cartas.sort()
-    return True if verifica_sequencial(cartas) and cartas[0] == 10 else False
+    return [True, cartas] if verifica_sequencial(cartas) and cartas[0] == 10 else [False, cartas]
 
 
 # JOGO
@@ -176,7 +185,7 @@ def categoriza_mao(cartas):
 
 
 def poker(mao1, mao2):
-    for i in range(5):
+    for i in range(10):
         if not mao1[i] and not mao2[i]:
             continue
         if mao1[i] and mao2[i]:
@@ -188,48 +197,78 @@ def poker(mao1, mao2):
         if mao2[i]:
             vencedor = 'Jogador 2'
             break
-
-    return [vencedor, i]
-
-
-def full_house(cartas):
-    par_ = par(cartas)
-    trinca_ = trinca(cartas)
-    if par_[0] and trinca_[0]:
-        par_[1].extend(trinca_[1])
-        return [True, par_[1]]
-    return [False, []]
+    nomes_jogadas = {0: 'Royal Flush', 1: 'Straight', 2: 'Flush', 3: 'Quadra', 4: 'Full House', 5: 'Flush', 6: 'Straight', 7: 'Trinca', 8: 'Dois Pares', 9: 'Par', 10: 'Carta Alta'}
+    return [vencedor, nomes_jogadas[i]]
 
 
-def test_full_house():
-    assert full_house([3, 3, 3, 2, 2]) == [True, [2, 3]]
+def distribuir_cartas():
+    baralho = [
+        2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7,
+        8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12,
+        13, 13, 13, 13, 14, 14, 14, 14
+    ]
+    shuffle(baralho)
+    print("\nBARALHO EMBARALHADO")
+    print(baralho)
+    mesa = baralho[0:5]
+    print("\nMESA")
+    print(mesa)
+    baralho = baralho[5:]
+
+    mao_jogador_1 = baralho[0:2]  #2 cartas
+    baralho.remove(mao_jogador_1[0])
+    baralho.remove(mao_jogador_1[1])
+    print("\nJogador 1 ")
+    print(mao_jogador_1)
+    mao_jogador_2 = baralho[0:2]  #2 cartas
+    baralho.remove(mao_jogador_2[0])
+    baralho.remove(mao_jogador_2[1])
+    print("\nJogador 2 ")
+    print(mao_jogador_2)
+
+    print("\nPILHA DO BARALHO")
+    print(baralho)
+    print("\nJogador 1 Final")
+    mao_jogador_1.extend(mesa)
+    print(mao_jogador_1)
+    print("\nJogador 2 Final")
+    mao_jogador_2.extend(mesa)
+    print(mao_jogador_2)
+
+    return mao_jogador_1, mao_jogador_2
 
 
-def test_carta_alta():
-    # Carta Alta
-    assert carta_alta([3, 4, 5, 6, 13]) == [True, 13]
-    assert carta_alta([2, 3, 4, 5, 10]) == [True, 10]
-    assert carta_alta([8, 9, 15, 11, 12]) == [True, 15]
+def jogar():
+    '''
+    Gerar a lista dos True e False, invocando as funções desenvolvidas para análise da carta.
+    E repassar para a função poker() a mão de cada jogador e informar o vencedor.    
+    Possivelmente criar uma funçãr dar as cartas (retornar o baralho)
+    
+    '''
 
+    jogador1, jogador2 = distribuir_cartas()
 
-def test_royal_flush():
-    assert royal_flush(sample(range(10, 15), 5)) == True
-    assert royal_flush(sample(range(2, 15), 5)) == False
+    lista_de_jogadas = [
+        royal_flush, straight_flush, quadra, full_house, flush, straight,
+        trinca, dois_pares, par, carta_alta
+    ]
 
+    lista_de_resultados_jogador_1 = list()
+    lista_de_resultados_jogador_2 = list()
 
-def test_straight_flush():
-    assert straight_flush(sample(range(2, 7), 5)) == True
-    assert straight_flush(sample(range(2, 15), 5)) == False
+    for jogada in lista_de_jogadas:
+        resultado_1, _ = jogada(jogador1)
+        lista_de_resultados_jogador_1.append(resultado_1)
+        resultado_2, _ = jogada(jogador2)
+        lista_de_resultados_jogador_2.append(resultado_2)
 
+    print('\n')
+    print(lista_de_resultados_jogador_1)
+    print(lista_de_resultados_jogador_2)
+    print('\n')
 
-def test_flush():
-    assert flush([6, 3, 4, 5, 11]) == [True, [3, 4, 5, 6, 11]]
-    assert flush([6, 3, 4, 5, 3]) == [False, []]
-
-
-def test_straight():
-    assert straight(sample(range(2, 7), 5)) == True
-    assert straight(sample(range(2, 15), 5)) == False
+    resultado = poker(lista_de_resultados_jogador_1, lista_de_resultados_jogador_2)
+    print(resultado)
 
 
 def test_verifica_sequencial():
@@ -243,6 +282,13 @@ def test_quantitatiza_cartas():
     assert quantitatiza_cartas([5, 5, 6, 7, 13]) == {5: 2, 6: 1, 7: 1, 13: 1}
     assert quantitatiza_cartas([5, 5, 5, 7, 13]) == {5: 3, 7: 1, 13: 1}
     assert quantitatiza_cartas([2, 5, 2, 7, 5]) == {5: 2, 2: 2, 7: 1}
+
+
+def test_carta_alta():
+    # Carta Alta
+    assert carta_alta([3, 4, 5, 6, 13]) == [True, 13]
+    assert carta_alta([2, 3, 4, 5, 10]) == [True, 10]
+    assert carta_alta([8, 9, 15, 11, 12]) == [True, 15]
 
 
 def test_par():
@@ -268,6 +314,24 @@ def test_trinca():
     assert trinca([4, 6, 8, 9, 11]) == [False, []]
 
 
+def test_straight():
+    cartas_1 = sample(range(2, 7), 5)
+    cartas_1.sort()
+    assert straight(cartas_1) == [True, cartas_1]
+    cartas_2 = sample(range(2, 15), 5)
+    cartas_2.sort()
+    assert straight(cartas_2) == [False, cartas_2]
+
+
+def test_flush():
+    assert flush([6, 3, 4, 5, 11]) == [True, [3, 4, 5, 6, 11]]
+    assert flush([6, 3, 4, 5, 3]) == [False, []]
+
+
+def test_full_house():
+    assert full_house([3, 3, 3, 2, 2]) == [True, [2, 3]]
+
+
 def test_quadra():
     assert quadra([5, 5, 5, 5, 13]) == [True, [5]]
     assert quadra([6, 2, 2, 2, 2]) == [True, [2]]
@@ -276,19 +340,33 @@ def test_quadra():
     assert quadra([4, 6, 8, 9, 11]) == [False, []]
 
 
+def test_straight_flush():
+    cartas_1 = sample(range(2, 7), 5)
+    cartas_1.sort()
+    assert straight_flush(cartas_1) == [True, cartas_1]
+    cartas_2 = sample(range(2, 15), 5)
+    cartas_2.sort()
+    assert straight_flush(cartas_2) == [False, cartas_2]
+
+
+def test_royal_flush():
+    cartas_1 = sample(range(10, 15), 5)
+    cartas_1.sort()
+    assert royal_flush(cartas_1) == [True, cartas_1]
+    cartas_2 = sample(range(2, 15), 5)
+    cartas_2.sort()
+    assert royal_flush(cartas_2) == [False, cartas_2]
+
+
 def test_poker():
     assert poker([False, True, True, False, False],
-                 [True, False, False, False, False]) == ['Jogador 2', 0]
+                 [True, False, False, False, False]) == ['Jogador 2', 'Royal Flush']
     assert poker([True, True, True, False, False],
-                 [True, False, False, False, False]) == ['Empate', 0]
+                 [True, False, False, False, False]) == ['Empate', 'Royal Flush']
     assert poker([False, True, True, False, False],
-                 [False, False, False, False, False]) == ['Jogador 1', 1]
-
-
-def jogar():
-    pass
+                 [False, False, False, False, False]) == ['Jogador 1', 'Straight']
 
 
 if __name__ == "__main__":
     pytest.main(['-svv', __file__])
-"""Royal Flush[!], Straight Flush[!], Quadra[!], Full House[!] , Flush[!], Straight[!], Trinca[!], Dois Pares[!], Pares[!], Carta Alta[!]"""
+    jogar()
