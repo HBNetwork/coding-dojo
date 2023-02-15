@@ -30,7 +30,7 @@ Saiba mais em: (1) [Descobri a ferramenta que pode levar o Programador para um o
 ### HBNetwork
 A HBNetwork é uma comunidade que acolhe os alunos que participam de alguma iniciativa promovida pelo Henrique Bastos. A maioria almejando a carreira de programação, mas esse é um dos poucos detalhes em comum, somos bastante heterogêneos. No nosso desenvolvimento enquanto sociedade, aprendemos a tratar a diferença como se ela fosse um problema e que deveríamos a qualquer custo evitá-las. Afinal estar em um ambiente com a sensação de controle traz uma enorme paz.  
 
-
+## Contributors  
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
