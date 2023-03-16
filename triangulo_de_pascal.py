@@ -77,13 +77,9 @@ def descobrindo_proxima_linha_2(array_entrada):
 
 def montando_triangulo_pascal(n):
     retorno = [[1],]
-    i=0
-    while i < n - 1:
+    for i in range(n - 1):
         saida = descobrindo_proxima_linha(retorno[i])
-        saida = descobrindo_proxima_linha([1])
         retorno.append(saida)
-        retorno[[1], [1,1]] 
-        i+=1
     return retorno
     
 
