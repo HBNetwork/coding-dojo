@@ -16,12 +16,21 @@
       "contributions": [
         "code"
       ]
-    },   
+    },
     {
       "login": "j-moreno-c-r",
       "name": "j.moreno",
       "avatar_url": "https://avatars.githubusercontent.com/u/105161249?v=4",
       "profile": "https://github.com/j-moreno-c-r",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mconrado",
+      "name": "mconrado",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3730951?v=4",
+      "profile": "https://github.com/mconrado",
       "contributions": [
         "code"
       ]
