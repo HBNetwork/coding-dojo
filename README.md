@@ -39,3 +39,6 @@ A HBNetwork é uma comunidade que acolhe os alunos que participam de alguma inic
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+LINK PANILHA ORDEM DOS PROBLEMAS: https://docs.google.com/spreadsheets/d/1xLMGPyvJVqxX3nPCDa-ZafnlFfVk_oHZ/edit?pli=1#gid=2433576
+
