@@ -1,4 +1,21 @@
 {
-  "projectName": "Coding Dojo",
-  "projectOwner": "HBNetwork"
+  "projectName": "coding-dojo",
+  "projectOwner": "HBNetwork",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "GregMasterBr",
+      "name": "GREGORIO DE ALMEIDA QUEIROZ ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11060618?v=4",
+      "profile": "http://gregmaster.com.br/portifolio/curriculum/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
 }
