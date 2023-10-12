@@ -1,4 +1,21 @@
 {
-  "projectName": "Coding Dojo",
-  "projectOwner": "HBNetwork"
+  "projectName": "coding-dojo",
+  "projectOwner": "HBNetwork",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "j-moreno-c-r",
+      "name": "j.moreno",
+      "avatar_url": "https://avatars.githubusercontent.com/u/105161249?v=4",
+      "profile": "https://github.com/j-moreno-c-r",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
 }
