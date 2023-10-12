@@ -34,6 +34,13 @@ A HBNetwork é uma comunidade que acolhe os alunos que participam de alguma inic
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/j-moreno-c-r"><img src="https://avatars.githubusercontent.com/u/105161249?v=4?s=100" width="100px;" alt="j.moreno"/><br /><sub><b>j.moreno</b></sub></a><br /><a href="#code-j-moreno-c-r" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
