@@ -41,6 +41,7 @@ A HBNetwork é uma comunidade que acolhe os alunos que participam de alguma inic
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/j-moreno-c-r"><img src="https://avatars.githubusercontent.com/u/105161249?v=4?s=100" width="100px;" alt="j.moreno"/><br /><sub><b>j.moreno</b></sub></a><br /><a href="#code-j-moreno-c-r" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mconrado"><img src="https://avatars.githubusercontent.com/u/3730951?v=4?s=100" width="100px;" alt="mconrado"/><br /><sub><b>mconrado</b></sub></a><br /><a href="#code-mconrado" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucaspaimrj21"><img src="https://avatars.githubusercontent.com/u/65385128?v=4?s=100" width="100px;" alt="Lucas Paim"/><br /><sub><b>Lucas Paim</b></sub></a><br /><a href="#code-lucaspaimrj21" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://evertonmatos.com.br"><img src="https://avatars.githubusercontent.com/u/11495171?v=4?s=100" width="100px;" alt="Everton Matos"/><br /><sub><b>Everton Matos</b></sub></a><br /><a href="#code-evertonmatos" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
