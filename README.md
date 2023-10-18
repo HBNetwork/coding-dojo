@@ -45,6 +45,9 @@ A HBNetwork é uma comunidade que acolhe os alunos que participam de alguma inic
       <td align="center" valign="top" width="14.28%"><a href="http://www.fredericofavaro.com"><img src="https://avatars.githubusercontent.com/u/22968198?v=4?s=100" width="100px;" alt="Frederico Fávaro"/><br /><sub><b>Frederico Fávaro</b></sub></a><br /><a href="#code-FredericoFavaro" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/adailtonvc"><img src="https://avatars.githubusercontent.com/u/17484841?v=4?s=100" width="100px;" alt="Adailton Vieira"/><br /><sub><b>Adailton Vieira</b></sub></a><br /><a href="#code-adailtonvc" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AlissonSH"><img src="https://avatars.githubusercontent.com/u/86666129?v=4?s=100" width="100px;" alt="Álisson Sielo Holkem"/><br /><sub><b>Álisson Sielo Holkem</b></sub></a><br /><a href="#code-AlissonSH" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 
