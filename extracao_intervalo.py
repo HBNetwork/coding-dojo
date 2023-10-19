@@ -26,44 +26,51 @@ import pytest
 
 
 def intervalo(lista):
-  retorno = ""
-  lista_intervalo = []
+  ultima_posicao_da_lista = len(lista)-1
+  #print(f'len da lista: {len(lista)}')
+  lista_sequencia = []
+  retorno = ''
 
-  for k, n in enumerate(lista):  # 1, 2
-    #print(f'{k} e {n}')
-    #print(lista_intervalo)
-
-    if k == 0:  #primeiro elemento da lista
-      lista_intervalo.append(n)  #adiciona a nova lista
-      if n + 1 == lista[k + 1]:  #verifica o próximo elemento para identificar uma possível sequencia
-        continue  # se for uma sequencia pula para o próximo elemento da lista
-    elif n - 1 == lista[k - 1]:  #verif
-      lista_intervalo.append(n)
-      if len(lista) - 1 > k + 1:
-        if n + 1 == lista[k + 1]:
+  for k, n in enumerate(lista):
+    #print(f'Posição: {k} - Número: {n}')
+    if k == 0:
+      lista_sequencia.append(n)
+      if ultima_posicao_da_lista >= k+1:
+        if lista[k+1] == n+1:
+          continue
+    elif lista[k-1] == n-1:
+      lista_sequencia.append(n)
+      if ultima_posicao_da_lista >= k+1:
+        if lista[k+1] == n+1:
           continue
     else:
-      lista_intervalo.append(n)
-      if len(lista) - 1 > k + 1:
-        if n + 1 == lista[k + 1]:
+      lista_sequencia.append(n)
+      if ultima_posicao_da_lista >= k+1:
+        if lista[k+1] == n+1:
           continue
-
-    if len(lista_intervalo) >= 3:
-      retorno += str(lista_intervalo[0]) + "-" + str(lista_intervalo[-1]) + ','
-      lista_intervalo = []
+    
+    #print(lista_sequencia)
+    
+    if len(lista_sequencia) >= 3:
+      retorno += '[' + str(lista_sequencia[0]) + ' - ' + str(lista_sequencia[-1]) + '], '
+    elif len(lista_sequencia) > 1:
+      for numero in lista_sequencia:
+        retorno += str(numero) + ', '
     else:
-      retorno += str(lista_intervalo[0]) + ','
-      lista_intervalo = []
+      retorno += str(lista_sequencia[0])+', '
+    
+    lista_sequencia = []
+  
+  print(f'\nLista: {lista}', end='')
+  print(f' Retorno: {retorno[:-2]}')
 
-  return retorno[:-1]
+  return retorno[:-2]
 
 
 def test_intervalo():
-  assert intervalo([1,2,3,5,6]) == "1-3,5,6"
-  assert intervalo([-10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5,
-                    7]) == "-10--8,-6,-3-1,3-5,7"
-
+  assert intervalo([1,2,3,5,6]) == "[1 - 3], 5, 6"
+  assert intervalo([-10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5,7]) == "[-10 - -8], -6, [-3 - 1], [3 - 5], 7"
+  assert intervalo([-10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 32, 33, 34]) == '[-10 - -8], -6, [-3 - 1], [3 - 5], 7, 8, [32 - 34]'
 
 if __name__ == "__main__":
   pytest.main(['-svv', __file__])
-
